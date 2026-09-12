@@ -1,10 +1,6 @@
 package com.realestate.dto;
 
 import jakarta.validation.constraints.NotBlank;
-
-/**
- * Request body for admin login: POST /api/admin/login
- */
 public class LoginRequest {
 
     @NotBlank(message = "username is required")
