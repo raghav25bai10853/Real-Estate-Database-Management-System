@@ -5,11 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
-
-/**
- * Represents an inquiry a customer makes about a property
- * (e.g. "I'm interested, please call me back").
- */
 public class Inquiry {
 
     private Long id;
