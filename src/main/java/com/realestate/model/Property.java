@@ -6,12 +6,6 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
-/**
- * Plain Java model (POJO) representing a property.
- * This is a simple data holder — NOT a JPA entity. We map rows to this
- * object manually using a RowMapper inside the DAO layer.
- */
 public class Property {
 
     private Long id;
@@ -27,7 +21,7 @@ public class Property {
     private String address;
 
     @NotBlank(message = "type is required")
-    private String type; // e.g. APARTMENT, VILLA, PLOT, HOUSE, COMMERCIAL
+    private String type; 
 
     @NotNull(message = "price is required")
     @Positive(message = "price must be positive")
@@ -40,7 +34,7 @@ public class Property {
     private Double areaSqft;
 
     @NotBlank(message = "status is required")
-    private String status; // AVAILABLE, SOLD, RENTED
+    private String status; 
 
     private LocalDateTime createdAt;
 
@@ -63,9 +57,6 @@ public class Property {
         this.status = status;
         this.createdAt = createdAt;
     }
-
-    // ----- Getters and Setters -----
-
     public Long getId() {
         return id;
     }

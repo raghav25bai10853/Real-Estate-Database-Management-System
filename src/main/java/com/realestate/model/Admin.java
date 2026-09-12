@@ -1,13 +1,4 @@
 package com.realestate.model;
-
-/**
- * Represents an admin user who can log in to manage properties.
- *
- * NOTE (beginner note): For simplicity this project stores/compares the
- * password as plain text in the database (see data.sql). This is fine for
- * learning/demo purposes only. In a real production system you must never
- * store plain text passwords — use a hashing algorithm like BCrypt.
- */
 public class Admin {
 
     private Long id;

@@ -1,9 +1,4 @@
 package com.realestate.dto;
-
-/**
- * Generic, beginner-friendly response wrapper so every API
- * returns a consistent shape: { "success": true/false, "message": "...", "data": ... }
- */
 public class ApiResponse<T> {
 
     private boolean success;
