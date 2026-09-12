@@ -84,7 +84,7 @@ All responses follow this shape:
 { "success": true, "message": "...", "data": { ... } }
 ```
 
-### 🏠 Property CRUD
+### Property CRUD
 
 **Create a property**
 ```bash
@@ -137,7 +137,7 @@ curl -X PUT http://localhost:8080/api/properties/1 \
 curl -X DELETE http://localhost:8080/api/properties/1
 ```
 
-### 🔍 Search Properties
+### Search Properties
 Query params: `city`, `type`, `minPrice`, `maxPrice`, `bedrooms`, `status` — **all optional**, combine any of them.
 
 ```bash
@@ -157,14 +157,14 @@ curl "http://localhost:8080/api/properties/search?bedrooms=3"
 curl "http://localhost:8080/api/properties/search?city=Bhopal&type=VILLA&minPrice=5000000&maxPrice=15000000&bedrooms=4&status=AVAILABLE"
 ```
 
-### 🔐 Admin Login
+### Admin Login
 ```bash
 curl -X POST http://localhost:8080/api/admin/login \
   -H "Content-Type: application/json" \
   -d '{ "username": "admin", "password": "admin123" }'
 ```
 
-### 📩 Inquiries
+### Inquiries
 
 **Submit an inquiry about a property**
 ```bash
@@ -200,12 +200,6 @@ curl -X DELETE http://localhost:8080/api/inquiries/1
 ```
 
 ---
-
-## Postman Setup
-1. Create a new Collection called "Real Estate API".
-2. Add a collection variable `baseUrl = http://localhost:8080`.
-3. For each request above, replace `http://localhost:8080` with `{{baseUrl}}`.
-4. Set `Content-Type: application/json` header on all POST/PUT requests, and paste the JSON body under the **Body → raw → JSON** tab.
 
 ## Notes for Beginners
 - **No JPA**: All SQL is written explicitly inside the `dao/` classes using `JdbcTemplate`. This is intentional so you can see exactly what SQL runs.
