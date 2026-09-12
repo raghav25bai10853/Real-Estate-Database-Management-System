@@ -14,12 +14,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-/**
- * Implementation of PropertyDao using plain JdbcTemplate (no JPA/Hibernate).
- * SQL is written explicitly so it's easy to see exactly what happens in the DB.
- */
-@Repository
+@Repository  
 public class PropertyDaoImpl implements PropertyDao {
 
     private final JdbcTemplate jdbcTemplate;
@@ -27,8 +22,6 @@ public class PropertyDaoImpl implements PropertyDao {
     public PropertyDaoImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-    // Maps one row of the "properties" table to a Property object
     private Property mapRow(java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
         Property p = new Property();
         p.setId(rs.getLong("id"));
@@ -36,7 +29,7 @@ public class PropertyDaoImpl implements PropertyDao {
         p.setDescription(rs.getString("description"));
         p.setCity(rs.getString("city"));
         p.setAddress(rs.getString("address"));
-        p.setType(rs.getString("type"));
+        p.setType(rs.getString("type"));   
         p.setPrice(rs.getBigDecimal("price"));
         p.setBedrooms((Integer) rs.getObject("bedrooms"));
         p.setBathrooms((Integer) rs.getObject("bathrooms"));
@@ -53,7 +46,7 @@ public class PropertyDaoImpl implements PropertyDao {
     public Property save(Property property) {
         String sql = "INSERT INTO properties " +
                 "(title, description, city, address, type, price, bedrooms, bathrooms, area_sqft, status, created_at) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         Timestamp now = Timestamp.valueOf(java.time.LocalDateTime.now());
@@ -63,7 +56,7 @@ public class PropertyDaoImpl implements PropertyDao {
             ps.setString(1, property.getTitle());
             ps.setString(2, property.getDescription());
             ps.setString(3, property.getCity());
-            ps.setString(4, property.getAddress());
+            ps.setString(4, property.getAddress());  
             ps.setString(5, property.getType());
             ps.setBigDecimal(6, property.getPrice());
             ps.setObject(7, property.getBedrooms());
@@ -77,7 +70,7 @@ public class PropertyDaoImpl implements PropertyDao {
         Long generatedId = keyHolder.getKey().longValue();
         property.setId(generatedId);
         property.setCreatedAt(now.toLocalDateTime());
-        return property;
+        return property;    
     }
 
     @Override
@@ -90,14 +83,14 @@ public class PropertyDaoImpl implements PropertyDao {
             return Optional.empty();
         }
     }
-
+  
     @Override
-    public List<Property> findAll() {
+    public List<Property> findAll() {  
         String sql = "SELECT * FROM properties ORDER BY id DESC";
         return jdbcTemplate.query(sql, this::mapRow);
-    }
+    }  
 
-    @Override
+    @Override  
     public boolean update(Property property) {
         String sql = "UPDATE properties SET title = ?, description = ?, city = ?, address = ?, " +
                 "type = ?, price = ?, bedrooms = ?, bathrooms = ?, area_sqft = ?, status = ? " +
@@ -105,9 +98,9 @@ public class PropertyDaoImpl implements PropertyDao {
         int rows = jdbcTemplate.update(sql,
                 property.getTitle(),
                 property.getDescription(),
-                property.getCity(),
+                property.getCity(), 
                 property.getAddress(),
-                property.getType(),
+                property.getType(),  
                 property.getPrice(),
                 property.getBedrooms(),
                 property.getBathrooms(),
@@ -116,25 +109,23 @@ public class PropertyDaoImpl implements PropertyDao {
                 property.getId());
         return rows > 0;
     }
-
+  
     @Override
     public boolean deleteById(Long id) {
         String sql = "DELETE FROM properties WHERE id = ?";
         int rows = jdbcTemplate.update(sql, id);
         return rows > 0;
-    }
+    }  
 
     @Override
     public boolean existsById(Long id) {
         String sql = "SELECT COUNT(*) FROM properties WHERE id = ?";
         Integer count = jdbcTemplate.queryForObject(sql, Integer.class, id);
         return count != null && count > 0;
-    }
-
-    @Override
+    } 
+    @Override  
     public List<Property> search(String city, String type, BigDecimal minPrice, BigDecimal maxPrice,
                                   Integer bedrooms, String status) {
-        // Build the WHERE clause dynamically based on which filters were provided.
         StringBuilder sql = new StringBuilder("SELECT * FROM properties WHERE 1 = 1");
         List<Object> params = new ArrayList<>();
 
@@ -145,13 +136,13 @@ public class PropertyDaoImpl implements PropertyDao {
         if (type != null && !type.isBlank()) {
             sql.append(" AND LOWER(type) = LOWER(?)");
             params.add(type);
-        }
+        }  
         if (minPrice != null) {
             sql.append(" AND price >= ?");
             params.add(minPrice);
         }
         if (maxPrice != null) {
-            sql.append(" AND price <= ?");
+            sql.append(" AND price <= ?");  
             params.add(maxPrice);
         }
         if (bedrooms != null) {
