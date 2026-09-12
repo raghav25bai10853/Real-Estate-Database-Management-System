@@ -1,0 +1,37 @@
+-- ===================================================================
+-- Real Estate Management System - schema.sql
+-- Runs automatically on every application startup.
+-- "IF NOT EXISTS" makes this safe to re-run without wiping existing data.
+-- ===================================================================
+
+CREATE TABLE IF NOT EXISTS admins (
+    id       BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50)  NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS properties (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    title       VARCHAR(150)   NOT NULL,
+    description VARCHAR(1000),
+    city        VARCHAR(100)   NOT NULL,
+    address     VARCHAR(255),
+    type        VARCHAR(30)    NOT NULL,   -- APARTMENT, VILLA, PLOT, HOUSE, COMMERCIAL
+    price       DECIMAL(15, 2) NOT NULL,
+    bedrooms    INT,
+    bathrooms   INT,
+    area_sqft   DOUBLE,
+    status      VARCHAR(20)    NOT NULL,   -- AVAILABLE, SOLD, RENTED
+    created_at  TIMESTAMP      NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS inquiries (
+    id          BIGINT AUTO_INCREMENT PRIMARY KEY,
+    property_id BIGINT       NOT NULL,
+    name        VARCHAR(100) NOT NULL,
+    email       VARCHAR(150) NOT NULL,
+    phone       VARCHAR(20)  NOT NULL,
+    message     VARCHAR(1000),
+    created_at  TIMESTAMP    NOT NULL,
+    CONSTRAINT fk_inquiry_property FOREIGN KEY (property_id) REFERENCES properties (id)
+);
