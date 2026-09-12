@@ -1,14 +1,4 @@
--- ===================================================================
--- Real Estate Management System - data.sql
--- Runs automatically after schema.sql on every startup.
--- Written so re-running it on every restart will NOT duplicate data.
--- ===================================================================
-
--- Default admin login: username = admin, password = admin123
--- MERGE ... KEY(username) = "insert if not exists, otherwise update" (upsert)
 MERGE INTO admins (username, password) KEY(username) VALUES ('admin', 'admin123');
-
--- Seed sample properties ONLY the very first time (table is empty).
 INSERT INTO properties (title, description, city, address, type, price, bedrooms, bathrooms, area_sqft, status, created_at)
 SELECT * FROM (
     VALUES
@@ -20,8 +10,6 @@ SELECT * FROM (
     ('Metro Heights Apartment', '1BHK apartment close to metro station', 'Delhi', 'Dwarka, Delhi', 'APARTMENT', 3800000.00, 1, 1, 600.0, 'RENTED', CURRENT_TIMESTAMP)
 ) AS seed_data
 WHERE NOT EXISTS (SELECT 1 FROM properties);
-
--- Seed one sample inquiry ONLY the very first time (table is empty).
 INSERT INTO inquiries (property_id, name, email, phone, message, created_at)
 SELECT 1, 'Rahul Sharma', 'rahul.sharma@example.com', '9876543210',
        'Interested in this apartment. Please share more photos.', CURRENT_TIMESTAMP
