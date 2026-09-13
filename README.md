@@ -109,7 +109,7 @@ You can test all endpoints in three ways:
 7. Restart the app and repeat step 2 → the same data (plus anything you added) should still be there, proving persistence.
 
 ## Screenshots
- ![CODE EXECUTION IN THE TERMINAL](screenshots/CODE TERMINAL.png)
+![Code execution in terminal](Screenshots/code-terminal.png)
 
 ## API Reference
 
