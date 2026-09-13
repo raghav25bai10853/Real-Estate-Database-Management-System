@@ -109,35 +109,35 @@ You can test all endpoints in three ways:
 7. Restart the app and repeat step 2 → the same data (plus anything you added) should still be there, proving persistence.
 
 ## Screenshots
-####Code execution in terminal
+#### Code execution in terminal
 
 ![Code execution in terminal](Screenshots/code-terminal.png)
 
-####Creating a property in postman
+#### Creating a property in postman
 
 ![creating a property](Screenshots/create-a-property-in-postman.png)
 
-####Error case in postman
+#### Error case in postman
 
 ![error case in postman](Screenshots/error-case-in-postman.png)
 
-####Error handling in postman
+#### Error handling in postman
 
 ![error handling in postman](Screenshots/error-handling-in-postman.png)
 
-####Filter searching in postman
+#### Filter searching in postman
 
 ![filter searching in postman](Screenshots/filter-search-in-postman.png)
 
-####Getting properties in postman
+#### Getting properties in postman
 
 ![getting properties in postman](Screenshots/getting-properties-in-postman.png)
 
-####LoggingIn in postman
+#### LoggingIn in postman
 
 ![loggingin in postman](Screenshots/logging-in-postman.png)
 
-####Submitting enquiry in postman
+#### Submitting enquiry in postman
 
 ![submitting enquiry in postman](Screenshots/submitting-enquiry-in-postman.png)
 
