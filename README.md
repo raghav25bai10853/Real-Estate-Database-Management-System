@@ -109,11 +109,7 @@ You can test all endpoints in three ways:
 7. Restart the app and repeat step 2 → the same data (plus anything you added) should still be there, proving persistence.
 
 ## Screenshots
-_(Optional — add screenshots here of Postman requests/responses, the H2 console, or the terminal showing the app running, e.g.:)_
-```
-![Get all properties in Postman](screenshots/get-properties.png)
-![App running in terminal](screenshots/app-startup.png)
-```
+ ![CODE EXECUTION IN THE TERMINAL](screenshots/CODE TERMINAL.png)
 
 ## API Reference
 
