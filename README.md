@@ -109,6 +109,8 @@ You can test all endpoints in three ways:
 7. Restart the app and repeat step 2 → the same data (plus anything you added) should still be there, proving persistence.
 
 ## Screenshots
+#### Admin Login Success
+**Code execution in terminal**
 ![Code execution in terminal](Screenshots/code-terminal.png)
 
 ## API Reference
