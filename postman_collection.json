@@ -1,18 +1,26 @@
 {
   "info": {
     "name": "Real Estate Management System",
-    "description": "Backend-only Spring Boot + JdbcTemplate + H2 REST API",
+    "description": "Spring Boot + JdbcTemplate + H2 REST API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
-    { "key": "baseUrl", "value": "http://localhost:8080" }
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
   ],
   "item": [
     {
       "name": "Admin Login",
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "url": "{{baseUrl}}/api/admin/login",
         "body": {
           "mode": "raw",
@@ -24,7 +32,12 @@
       "name": "Create Property",
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "url": "{{baseUrl}}/api/properties",
         "body": {
           "mode": "raw",
@@ -50,7 +63,12 @@
       "name": "Update Property",
       "request": {
         "method": "PUT",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "url": "{{baseUrl}}/api/properties/1",
         "body": {
           "mode": "raw",
@@ -76,7 +94,12 @@
       "name": "Create Inquiry",
       "request": {
         "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
         "url": "{{baseUrl}}/api/inquiries",
         "body": {
           "mode": "raw",
