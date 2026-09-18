@@ -104,11 +104,29 @@ Everything is tested from the command line against the locally running server �
 7. Restart the app and repeat step 2 → the same data (plus anything you added) should still be there, proving persistence.
 
 ## Screenshots
-_(Optional — add screenshots here of the terminal running curl commands and their JSON output, e.g.:)_
-```
-![curl output for GET /api/properties](screenshots/get-properties.png)
-![App running in terminal](screenshots/app-startup.png)
-```
+#### Code Execution In The Terminal
+![Terminal](Screenshots/code-execution-in-terminal.jpg)
+
+#### LoggingIn
+![Terminal](Screenshots/loggingin.png)
+
+#### Getting Properties
+![Terminal](Screenshots/getting-properties.png)
+
+#### Creating a Property
+![Terminal](Screenshots/creating-a-property.png)
+
+#### Searching a Property
+![Get properties](Screenshots/searching-a-property.png)
+
+#### Submitting an Inquiry
+![Get properties](Screenshots/submitting-an-inquiry.png)
+
+#### Error
+![Get properties](Screenshots/error.png)
+
+#### Error Handling
+![Get properties](Screenshots/error-handling.png)
 
 ## API Reference
 
