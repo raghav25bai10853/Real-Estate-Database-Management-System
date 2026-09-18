@@ -135,7 +135,7 @@ All responses follow this shape:
 { "success": true, "message": "...", "data": { ... } }
 ```
 
-### 🏠 Property CRUD
+### Property CRUD
 
 **Create a property**
 ```bash
@@ -188,7 +188,7 @@ curl -X PUT http://localhost:8080/api/properties/1 \
 curl -X DELETE http://localhost:8080/api/properties/1
 ```
 
-### 🔍 Search Properties
+### Search Properties
 Query params: `city`, `type`, `minPrice`, `maxPrice`, `bedrooms`, `status` — **all optional**, combine any of them.
 
 ```bash
@@ -208,14 +208,14 @@ curl "http://localhost:8080/api/properties/search?bedrooms=3"
 curl "http://localhost:8080/api/properties/search?city=Bhopal&type=VILLA&minPrice=5000000&maxPrice=15000000&bedrooms=4&status=AVAILABLE"
 ```
 
-### 🔐 Admin Login
+### Admin Login
 ```bash
 curl -X POST http://localhost:8080/api/admin/login \
   -H "Content-Type: application/json" \
   -d '{ "username": "admin", "password": "admin123" }'
 ```
 
-### 📩 Inquiries
+### Inquiries
 
 **Submit an inquiry about a property**
 ```bash
@@ -251,13 +251,3 @@ curl -X DELETE http://localhost:8080/api/inquiries/1
 ```
 
 ---
-
-## Notes for Beginners
-- **No JPA**: All SQL is written explicitly inside the `dao/` classes using `JdbcTemplate`. This is intentional so you can see exactly what SQL runs.
-- **No JWT/Spring Security**: Admin login just checks the DB and returns success/failure as JSON. Good enough for learning; not secure for production.
-- **Passwords are stored in plain text** in `data.sql`/DB for simplicity. Never do this in a real production app — use BCrypt hashing instead.
-- **Validation**: Property/Inquiry/LoginRequest use `@Valid` + Jakarta Bean Validation annotations (`@NotBlank`, `@Email`, etc.). Sending bad data returns a clear `400` JSON error instead of a crash.
-- **Error handling**: `GlobalExceptionHandler` catches errors app-wide so you always get clean JSON responses like:
-  ```json
-  { "success": false, "message": "Property not found with id: 99", "data": null }
-  ```
