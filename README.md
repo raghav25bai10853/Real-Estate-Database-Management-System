@@ -1,7 +1,9 @@
 # Real Estate Management System
 
 ## Overview
-This is a **backend-only REST API** for managing real estate property listings, built with **Spring Boot + JdbcTemplate + H2 (file-based database)**. It allows an admin to manage property records (add/update/delete/search) and allows customers to submit inquiries about a property. There is no frontend — it is meant to be consumed via Postman, curl, or any client application. The project follows a clean layered architecture (Controller → Service → DAO → Model) using plain JDBC (no JPA/Hibernate), so every SQL query is explicit and easy to follow.
+This is a **backend-only REST API** for managing real estate property listings, built with **Spring Boot + JdbcTemplate + H2 (file-based database)**. It allows an admin to manage property records (add/update/delete/search) and allows customers to submit inquiries about a property. There is no frontend — it is meant to be tested entirely via the command line (curl) against the local server. The project follows a clean layered architecture (Controller → Service → DAO → Model) using plain JDBC (no JPA/Hibernate), so every SQL query is explicit and easy to follow.
+
+> **This project is fully runnable and testable from the command line.** No GUI, IDE, browser, or graphical installer is required to build, run, or test it — everything works with plain terminal commands: `mvn spring-boot:run` to start the server on `localhost:8080`, and `curl` to send requests to it and see the JSON response, all inside the terminal.
 
 ## Features
 - **Property CRUD** — create, read, update, delete property listings
@@ -22,7 +24,7 @@ This is a **backend-only REST API** for managing real estate property listings, 
 | Database           | H2 (file-based, embedded) |
 | Build tool         | Maven |
 | Validation         | Jakarta Bean Validation |
-| API testing        | Postman / curl |
+| API testing        | curl (command line) |
 
 ## Project Layers
 ```
@@ -75,17 +77,11 @@ The app starts on **http://localhost:8080**.
 ### 3. Where is my data stored?
 This project uses **file-based H2** (not in-memory), configured in `application.properties`:
 ```properties
-spring.datasource.url=jdbc:h2:file:./data/realestatedb;AUTO_SERVER=TRUE;DB_CLOSE_ON_EXIT=FALSE
+spring.datasource.url=jdbc:h2:file:./data/realestatedb;DB_CLOSE_ON_EXIT=FALSE
 ```
 This creates a `data/realestatedb.mv.db` file next to your project. Stop the app, start it again — your data is still there. `schema.sql` and `data.sql` are written to be safe to re-run (they won't duplicate or wipe rows).
 
-### 4. View the database in browser (optional)
-Visit: `http://localhost:8080/h2-console`
-- JDBC URL: `jdbc:h2:file:./data/realestatedb`
-- Username: `sa`
-- Password: *(leave blank)*
-
-### 5. Default admin login
+### 4. Default admin login
 ```
 username: admin
 password: admin123
@@ -94,10 +90,9 @@ password: admin123
 ---
 
 ## Instructions for Testing
-You can test all endpoints in three ways:
-1. **Postman** — import `postman_collection.json` (included in this repo) into Postman. It has a `baseUrl` variable already set to `http://localhost:8080`, and one ready-made request per endpoint.
-2. **curl** — copy-paste any command from the [API Reference](#api-reference) section below into a terminal while the app is running.
-3. **H2 Console** — visit `http://localhost:8080/h2-console` (JDBC URL: `jdbc:h2:file:./data/realestatedb`, username `sa`, no password) to inspect the actual database tables and rows after running requests.
+Everything is tested from the command line against the locally running server — no GUI or browser required:
+1. Start the app with `mvn spring-boot:run` (it starts listening on `http://localhost:8080`).
+2. Open a second terminal window and run any `curl` command from the [API Reference](#api-reference) section below. Each command sends a request to the local server and prints the JSON response directly in the terminal.
 
 **Suggested test flow:**
 1. Start the app (`mvn spring-boot:run`).
@@ -109,37 +104,11 @@ You can test all endpoints in three ways:
 7. Restart the app and repeat step 2 → the same data (plus anything you added) should still be there, proving persistence.
 
 ## Screenshots
-#### Code execution in terminal
-
-![Code execution in terminal](Screenshots/code-terminal.png)
-
-#### Creating a property in postman
-
-![creating a property](Screenshots/create-a-property-in-postman.png)
-
-#### Error case in postman
-
-![error case in postman](Screenshots/error-case-in-postman.png)
-
-#### Error handling in postman
-
-![error handling in postman](Screenshots/error-handling-in-postman.png)
-
-#### Filter searching in postman
-
-![filter searching in postman](Screenshots/filter-search-in-postman.png)
-
-#### Getting properties in postman
-
-![getting properties in postman](Screenshots/getting-properties-in-postman.png)
-
-#### LoggingIn in postman
-
-![loggingin in postman](Screenshots/logging-in-postman.png)
-
-#### Submitting enquiry in postman
-
-![submitting enquiry in postman](Screenshots/submitting-enquiry-in-postman.png)
+_(Optional — add screenshots here of the terminal running curl commands and their JSON output, e.g.:)_
+```
+![curl output for GET /api/properties](screenshots/get-properties.png)
+![App running in terminal](screenshots/app-startup.png)
+```
 
 ## API Reference
 
@@ -148,7 +117,7 @@ All responses follow this shape:
 { "success": true, "message": "...", "data": { ... } }
 ```
 
-### Property CRUD
+### 🏠 Property CRUD
 
 **Create a property**
 ```bash
@@ -201,7 +170,7 @@ curl -X PUT http://localhost:8080/api/properties/1 \
 curl -X DELETE http://localhost:8080/api/properties/1
 ```
 
-### Search Properties
+### 🔍 Search Properties
 Query params: `city`, `type`, `minPrice`, `maxPrice`, `bedrooms`, `status` — **all optional**, combine any of them.
 
 ```bash
@@ -221,14 +190,14 @@ curl "http://localhost:8080/api/properties/search?bedrooms=3"
 curl "http://localhost:8080/api/properties/search?city=Bhopal&type=VILLA&minPrice=5000000&maxPrice=15000000&bedrooms=4&status=AVAILABLE"
 ```
 
-### Admin Login
+### 🔐 Admin Login
 ```bash
 curl -X POST http://localhost:8080/api/admin/login \
   -H "Content-Type: application/json" \
   -d '{ "username": "admin", "password": "admin123" }'
 ```
 
-### Inquiries
+### 📩 Inquiries
 
 **Submit an inquiry about a property**
 ```bash
@@ -263,4 +232,14 @@ curl http://localhost:8080/api/inquiries/property/1
 curl -X DELETE http://localhost:8080/api/inquiries/1
 ```
 
+---
 
+## Notes for Beginners
+- **No JPA**: All SQL is written explicitly inside the `dao/` classes using `JdbcTemplate`. This is intentional so you can see exactly what SQL runs.
+- **No JWT/Spring Security**: Admin login just checks the DB and returns success/failure as JSON. Good enough for learning; not secure for production.
+- **Passwords are stored in plain text** in `data.sql`/DB for simplicity. Never do this in a real production app — use BCrypt hashing instead.
+- **Validation**: Property/Inquiry/LoginRequest use `@Valid` + Jakarta Bean Validation annotations (`@NotBlank`, `@Email`, etc.). Sending bad data returns a clear `400` JSON error instead of a crash.
+- **Error handling**: `GlobalExceptionHandler` catches errors app-wide so you always get clean JSON responses like:
+  ```json
+  { "success": false, "message": "Property not found with id: 99", "data": null }
+  ```
